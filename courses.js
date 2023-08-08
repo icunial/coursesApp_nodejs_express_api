@@ -39,3 +39,5 @@ let infoCourses = {
     },
   ],
 };
+
+module.exports = infoCourses;
