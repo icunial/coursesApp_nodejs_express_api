@@ -43,4 +43,10 @@ codingRouter.get("/:lang/:level", (req, res) => {
   res.json(results);
 });
 
+codingRouter.post("/", (req, res) => {
+  const newCourse = req.body;
+  courses.coding.push(newCourse);
+  res.json(courses.coding);
+});
+
 module.exports = codingRouter;
