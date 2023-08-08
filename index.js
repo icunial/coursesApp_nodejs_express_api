@@ -25,6 +25,14 @@ app.get("/api/courses/coding/:lang", (req, res) => {
     return res.status(404).send(`Courses about ${lang} not found!`);
   }
 
+  if (req.query.order === "views") {
+    return res.json(
+      results.sort((a, b) => {
+        return a.views - b.views;
+      })
+    );
+  }
+
   res.json(results);
 });
 
