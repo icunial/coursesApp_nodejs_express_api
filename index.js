@@ -3,6 +3,11 @@ const app = express();
 
 const courses = require("./courses");
 
+//Routers
+
+const codingRouter = express.Router();
+app.use("/api/courses/coding", codingRouter);
+
 // Routing
 
 app.get("/", (req, res) => {
@@ -13,11 +18,11 @@ app.get("/api/courses", (req, res) => {
   res.json(courses);
 });
 
-app.get("/api/courses/coding", (req, res) => {
+codingRouter.get("/", (req, res) => {
   res.json(courses.coding);
 });
 
-app.get("/api/courses/coding/:lang", (req, res) => {
+codingRouter.get("/:lang", (req, res) => {
   const lang = req.params.lang;
   const results = courses.coding.filter((course) => course.language === lang);
 
@@ -36,7 +41,7 @@ app.get("/api/courses/coding/:lang", (req, res) => {
   res.json(results);
 });
 
-app.get("/api/courses/coding/:lang/:level", (req, res) => {
+codingRouter.get("/:lang/:level", (req, res) => {
   const lang = req.params.lang;
   const level = req.params.level;
 
