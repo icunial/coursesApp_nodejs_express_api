@@ -6,7 +6,9 @@ const courses = require("./courses");
 //Routers
 
 const codingRouter = express.Router();
+const mathRouter = express.Router();
 app.use("/api/courses/coding", codingRouter);
+app.use("/api/courses/math", mathRouter);
 
 // Routing
 
@@ -58,11 +60,11 @@ codingRouter.get("/:lang/:level", (req, res) => {
   res.json(results);
 });
 
-app.get("/api/courses/math", (req, res) => {
+mathRouter.get("/", (req, res) => {
   res.json(courses.mathmatics);
 });
 
-app.get("/api/courses/math/:topic", (req, res) => {
+mathRouter.get("/:topic", (req, res) => {
   const topic = req.params.topic;
   const results = courses.mathmatics.filter((course) => course.topic === topic);
 
