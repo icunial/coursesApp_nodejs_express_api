@@ -6,6 +6,9 @@ const courses = require("./courses");
 const mathRouter = require("./routers/math");
 const codingRouter = require("./routers/coding");
 
+// Middleware -> Body Parser
+app.use(express.json());
+
 //Routers
 
 app.use("/api/courses/coding", codingRouter);
