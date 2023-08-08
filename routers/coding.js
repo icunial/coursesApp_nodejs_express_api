@@ -84,4 +84,19 @@ codingRouter.patch("/:id", (req, res) => {
   }
 });
 
+codingRouter.delete("/:id", (req, res) => {
+  const id = req.params.id;
+
+  const index = courses.coding.findIndex((course) => {
+    return course.id === parseInt(id);
+  });
+
+  if (index >= 0) {
+    courses.coding.splice(index, 1);
+    return res.status(200).json(courses.coding);
+  } else {
+    return res.status(404).json(`Course with id: ${id} not found!`);
+  }
+});
+
 module.exports = codingRouter;
