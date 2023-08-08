@@ -65,4 +65,23 @@ codingRouter.put("/:id", (req, res) => {
   }
 });
 
+codingRouter.patch("/:id", (req, res) => {
+  const updatedInfo = req.body;
+  const id = req.params.id;
+
+  const index = courses.coding.findIndex((course) => {
+    return course.id === parseInt(id);
+  });
+
+  if (index >= 0) {
+    const courseToUpdate = courses.coding[index];
+
+    Object.assign(courseToUpdate, updatedInfo);
+
+    return res.json(courseToUpdate);
+  } else {
+    return res.status(404).json(`Course with id: ${id} not found!`);
+  }
+});
+
 module.exports = codingRouter;
