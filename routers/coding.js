@@ -96,6 +96,9 @@ codingRouter.delete("/:id", (req, res) => {
     return res.status(200).json(courses.coding);
   } else {
     return res.status(404).json(`Course with id: ${id} not found!`);
+    // return res.status(404).end()
+    // return res.status(204).json(`Course with id: ${id} not found!`);
+    // 204 -> no content
   }
 });
 
