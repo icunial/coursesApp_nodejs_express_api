@@ -32,6 +32,17 @@ app.get("/api/courses/math", (req, res) => {
   res.json(courses.mathmatics);
 });
 
+app.get("/api/courses/math/:topic", (req, res) => {
+  const topic = req.params.topic;
+  const results = courses.mathmatics.filter((course) => course.topic === topic);
+
+  if (results.length === 0) {
+    return res.status(404).send(`Courses about ${topic} not found!`);
+  }
+
+  res.json(results);
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
