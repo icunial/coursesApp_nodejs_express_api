@@ -82,9 +82,14 @@ codingRouter.put("/:id", (req, res) => {
 
   if (index >= 0) {
     courses.coding[index] = updatedCourse;
-    return res.json(updatedCourse);
+    return res.status(200).json({
+      statusCode: 200,
+      data: updatedCourse,
+    });
   } else {
-    return res.status(404).json(`Course with id: ${id} not found!`);
+    return res
+      .status(404)
+      .json({ statusCode: 404, msg: `Course with id: ${id} not found!` });
   }
 });
 
@@ -101,9 +106,14 @@ codingRouter.patch("/:id", (req, res) => {
 
     Object.assign(courseToUpdate, updatedInfo);
 
-    return res.json(courseToUpdate);
+    return res.status(200).json({
+      statusCode: 200,
+      data: courseToUpdate,
+    });
   } else {
-    return res.status(404).json(`Course with id: ${id} not found!`);
+    return res
+      .status(404)
+      .json({ statusCode: 404, msg: `Course with id: ${id} not found!` });
   }
 });
 
@@ -115,10 +125,13 @@ codingRouter.delete("/:id", (req, res) => {
   });
 
   if (index >= 0) {
+    const courseToDelete = courses.coding[index];
     courses.coding.splice(index, 1);
-    return res.status(200).json(courses.coding);
+    return res.status(200).json({ statusCode: 200, data: courseToDelete });
   } else {
-    return res.status(404).json(`Course with id: ${id} not found!`);
+    return res
+      .status(404)
+      .json({ statusCode: 404, msg: `Course with id: ${id} not found!` });
     // return res.status(404).end()
     // return res.status(204).json(`Course with id: ${id} not found!`);
     // 204 -> no content
