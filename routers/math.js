@@ -1,5 +1,6 @@
 const express = require("express");
 const mathRouter = express.Router();
+const uuid = require("uuid");
 
 const courses = require("../courses");
 
@@ -38,6 +39,14 @@ mathRouter.post("/", (req, res) => {
       msg: `Title, topic and level properties can not be empty!`,
     });
   }
+
+  const newCourse = { id: uuid.v4(), views: 0, ...req.body };
+  courses.mathmatics.push(newCourse);
+  res.status(201).json({
+    statusCode: 200,
+    newCourse,
+    data: courses.mathmatics,
+  });
 });
 
 module.exports = mathRouter;
