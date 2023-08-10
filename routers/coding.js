@@ -24,12 +24,14 @@ codingRouter.get("/:lang", (req, res) => {
     });
   }
 
+  // Sort courses by views
   if (req.query.order === "views") {
-    return res.json(
-      results.sort((a, b) => {
+    return res.status(200).json({
+      statusCode: 200,
+      data: results.sort((a, b) => {
         return a.views - b.views;
-      })
-    );
+      }),
+    });
   }
 
   res.status(200).json({ statusCode: 200, data: results });
