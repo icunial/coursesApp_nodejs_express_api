@@ -1,5 +1,6 @@
 const express = require("express");
 const codingRouter = express.Router();
+const uuid = require("uuid");
 
 const courses = require("../courses");
 
@@ -53,10 +54,22 @@ codingRouter.get("/:lang/:level", (req, res) => {
   res.status(200).json({ statusCode: 200, data: results });
 });
 
+// Create a new Coding Course
 codingRouter.post("/", (req, res) => {
-  const newCourse = req.body;
+  // Validations
+  if (!req.body.title || !req.body.language || !req.body.level) {
+    return res.status(400).json({
+      statusCode: 400,
+      msg: `Title, language and level properties can not be empty!`,
+    });
+  }
+  const newCourse = { id: uuid.v4(), views: 0, ...req.body };
   courses.coding.push(newCourse);
-  res.json(courses.coding);
+  res.status(201).json({
+    statusCode: 200,
+    newCourse,
+    data: courses.coding,
+  });
 });
 
 codingRouter.put("/:id", (req, res) => {
