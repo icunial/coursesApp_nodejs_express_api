@@ -74,6 +74,7 @@ codingRouter.post("/", (req, res) => {
   });
 });
 
+// Update Coding Course by id
 codingRouter.put("/:id", (req, res) => {
   const updatedCourse = req.body;
   const id = req.params.id;
@@ -119,6 +120,7 @@ codingRouter.patch("/:id", (req, res) => {
   }
 });
 
+// Delete Coding Course by id
 codingRouter.delete("/:id", (req, res) => {
   const id = req.params.id;
 
