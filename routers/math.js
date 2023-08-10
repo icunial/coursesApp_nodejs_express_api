@@ -73,4 +73,27 @@ mathRouter.put("/:id", (req, res) => {
   }
 });
 
+// Delete Math Course by id
+mathRouter.delete("/:id", (req, res) => {
+  const id = req.params.id;
+
+  const index = courses.mathmatics.findIndex((course) => {
+    return course.id === parseInt(id);
+  });
+
+  if (index >= 0) {
+    const courseToDelete = courses.coding[index];
+    courses.coding.splice(index, 1);
+    return res.status(200).json({
+      statusCode: 200,
+      data: courseToDelete,
+    });
+  } else {
+    return res.status(404).json({
+      statusCode: 404,
+      msg: `Course with id: ${id} not found!`,
+    });
+  }
+});
+
 module.exports = mathRouter;
