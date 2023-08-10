@@ -29,4 +29,15 @@ mathRouter.get("/:topic", (req, res) => {
   });
 });
 
+// Create a new Math Course
+mathRouter.post("/", (req, res) => {
+  // Validations
+  if (!req.body.title || !req.body.topic || !req.body.level) {
+    return res.status(400).json({
+      statusCode: 400,
+      msg: `Title, topic and level properties can not be empty!`,
+    });
+  }
+});
+
 module.exports = mathRouter;
