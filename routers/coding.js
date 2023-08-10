@@ -3,16 +3,24 @@ const codingRouter = express.Router();
 
 const courses = require("../courses");
 
+// Gets all coding courses
 codingRouter.get("/", (req, res) => {
-  res.json(courses.coding);
+  res.status(200).json({
+    statusCode: 200,
+    data: courses.coding,
+  });
 });
 
+// Gets all coding courses filtered by language
 codingRouter.get("/:lang", (req, res) => {
   const lang = req.params.lang;
   const results = courses.coding.filter((course) => course.language === lang);
 
   if (results.length === 0) {
-    return res.status(404).send(`Courses about ${lang} not found!`);
+    return res.status(404).json({
+      statusCode: 404,
+      msg: `Courses about ${lang} not found!`,
+    });
   }
 
   if (req.query.order === "views") {
@@ -23,9 +31,10 @@ codingRouter.get("/:lang", (req, res) => {
     );
   }
 
-  res.json(results);
+  res.status(200).json({ statusCode: 200, data: results });
 });
 
+// Gets all coding courses filtered by language and level
 codingRouter.get("/:lang/:level", (req, res) => {
   const lang = req.params.lang;
   const level = req.params.level;
@@ -35,12 +44,13 @@ codingRouter.get("/:lang/:level", (req, res) => {
   );
 
   if (results.length === 0) {
-    return res
-      .status(404)
-      .send(`Courses about ${lang} and level ${level} not found!`);
+    return res.status(404).json({
+      statusCode: 404,
+      msg: `Courses about ${lang} and level ${level} not found!`,
+    });
   }
 
-  res.json(results);
+  res.status(200).json({ statusCode: 200, data: results });
 });
 
 codingRouter.post("/", (req, res) => {
