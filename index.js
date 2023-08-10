@@ -20,8 +20,15 @@ app.get("/", (req, res) => {
   res.send("CoursesApp");
 });
 
+// Gets all courses
 app.get("/api/courses", (req, res) => {
-  res.json(courses);
+  if (courses.length === 0) {
+    return res.status(404).json({
+      statusCode: 404,
+      msg: `Courses not found!`,
+    });
+  }
+  res.status(200).json({ statusCode: 200, data: courses });
 });
 
 const PORT = process.env.PORT || 5000;
